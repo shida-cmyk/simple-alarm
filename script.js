@@ -5,13 +5,34 @@ let alarms = loadAlarms();
 const clockEl = document.getElementById("clock");
 const listEl = document.getElementById("alarm-list");
 const formEl = document.getElementById("setter");
-const timeInput = document.getElementById("time-input");
+const hourInput = document.getElementById("hour-input");
+const minuteInput = document.getElementById("minute-input");
 const ringingEl = document.getElementById("ringing");
 const ringingTimeEl = document.getElementById("ringing-time");
 const stopBtn = document.getElementById("stop-btn");
 
 let audioCtx = null;
 let ringTimer = null;
+
+// ---- 時刻ドロップダウンの初期化 ----
+function buildTimeOptions() {
+  for (let h = 0; h < 24; h++) {
+    const opt = document.createElement("option");
+    opt.value = String(h).padStart(2, "0");
+    opt.textContent = String(h).padStart(2, "0");
+    hourInput.append(opt);
+  }
+  for (let m = 0; m < 60; m++) {
+    const opt = document.createElement("option");
+    opt.value = String(m).padStart(2, "0");
+    opt.textContent = String(m).padStart(2, "0");
+    minuteInput.append(opt);
+  }
+  // 現在時刻を初期値に
+  const now = new Date();
+  hourInput.value = String(now.getHours()).padStart(2, "0");
+  minuteInput.value = String(now.getMinutes()).padStart(2, "0");
+}
 
 // ---- 永続化 ----
 function loadAlarms() {
@@ -127,14 +148,13 @@ function stopRinging() {
 // ---- イベント ----
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (!timeInput.value) return;
-  addAlarm(timeInput.value);
-  timeInput.value = "";
+  addAlarm(`${hourInput.value}:${minuteInput.value}`);
 });
 
 stopBtn.addEventListener("click", stopRinging);
 
 // ---- 起動 ----
+buildTimeOptions();
 render();
 tick();
 setInterval(tick, 1000);

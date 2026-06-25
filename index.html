@@ -13,7 +13,11 @@
     <div class="clock" id="clock">--:--:--</div>
 
     <form class="setter" id="setter">
-      <input type="time" id="time-input" required>
+      <div class="time-picker">
+        <select id="hour-input" aria-label="時"></select>
+        <span class="colon">:</span>
+        <select id="minute-input" aria-label="分"></select>
+      </div>
       <button type="submit" class="btn btn-primary">セット</button>
     </form>
 

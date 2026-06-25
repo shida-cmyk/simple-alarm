@@ -52,14 +52,40 @@ body {
   margin-bottom: 24px;
 }
 
-#time-input {
+.time-picker {
   flex: 1;
-  font-size: 1.1rem;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: var(--card);
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+
+.time-picker select {
+  flex: 1;
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  padding: 10px 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
   color: var(--text);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.time-picker select:focus {
+  outline: none;
+  background: rgba(108, 140, 255, 0.15);
+}
+
+.time-picker .colon {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .btn {
